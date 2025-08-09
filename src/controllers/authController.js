@@ -28,7 +28,10 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+  console.log(req.body);
   let { email, password } = req.body;
+  console.log("Email recieved from the fronted " + email);
+  console.log("Password recieved from the frontend " + password);
 
   try {
     let user = await getUserByEmail(email);
