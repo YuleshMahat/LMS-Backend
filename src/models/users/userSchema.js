@@ -29,6 +29,13 @@ const userSchema = new mongoose.Schema({
   refreshJWT: {
     type: String,
   },
+  emailVerificationToken: {
+    type: String,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("User", userSchema);
