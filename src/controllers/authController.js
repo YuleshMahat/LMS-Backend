@@ -4,10 +4,9 @@ import {
   updateUser,
 } from "../models/users/userModel.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import sendEmailVerificationTemplate from "../utils/mailProcessor.js";
-
+import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 export const registerUser = async (req, res) => {
   console.log("register route hit");
   const userObject = req.body;
@@ -52,11 +51,7 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  console.log(req.body);
   let { email, password } = req.body;
-  console.log("Email recieved from the fronted " + email);
-  console.log("Password recieved from the frontend " + password);
-
   try {
     let user = await getUserByEmail(email);
 
@@ -69,15 +64,14 @@ export const loginUser = async (req, res) => {
           email: user.email,
         };
 
-        let accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: process.env.JWT_EXPIRESIN,
-        });
+        let accessToken = createAccessToken(payload);
+        let refreshToken = createRefreshToken(payload);
 
         return res.status(200).json({
           status: true,
           message: "Login Successful",
-          user,
           accessToken,
+          refreshToken,
         });
       } else {
         return res.status(401).json({

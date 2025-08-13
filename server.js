@@ -3,15 +3,16 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoConnect from "./src/config/mongoConfig.js";
 import config from "./src/config/config.js";
-import authRoutes from "./src/routes/authRoutes.js";
-
+import authRouter from "./src/routes/authRouter.js";
+import userRouter from "./src/routes/userRouter.js";
 const app = express();
 
 dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 app.get("/", (req, res) => {
   res.send("I am alive");
 });
