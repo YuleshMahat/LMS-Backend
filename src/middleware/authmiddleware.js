@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "../models/users/userModel.js";
-import { createAccessToken } from "../utils/jwt.js";
+import { createAccessToken, decodeRefreshToken } from "../utils/jwt.js";
 
 export const authmiddleware = async (req, res, next) => {
   console.log("Authentication middleware triggered.");
   try {
     let accessToken = req.headers.authorization;
+    console.log(accessToken);
     let decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
     let user = await getUserByEmail(decoded.email);
     if (user) {
@@ -33,10 +34,12 @@ export const authmiddleware = async (req, res, next) => {
 };
 
 export const refreshmiddleware = async (req, res, next) => {
-  console.log("Resresh token middleware trigerred");
+  console.log("Refresh token middleware trigerred");
   try {
     let refreshToken = req.headers.authorization;
-    let decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    console.log(refreshToken);
+    let decoded = decodeRefreshToken(refreshToken);
+    console.log("decoded refresh token:", decoded);
     let user = await getUserByEmail(decoded.email);
     if (user) {
       user.password = "";

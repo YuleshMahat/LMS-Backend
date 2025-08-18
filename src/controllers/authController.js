@@ -118,3 +118,18 @@ export const verifyEmail = async (req, res) => {
       .json({ status: false, message: "USER NOT VERIFIED" });
   }
 };
+
+export const newAccessToken = (req, res) => {
+  let payload = {
+    email: req.user.email,
+  };
+  console.log(payload);
+
+  let accessToken = createAccessToken(payload);
+  console.log("new access token: ", accessToken);
+  return res.status(200).json({
+    message: "Success",
+    status: true,
+    accessToken,
+  });
+};
