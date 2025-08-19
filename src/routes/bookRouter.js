@@ -1,8 +1,8 @@
 import express from "express";
-import { authmiddleware } from "../middleware/authmiddleware.js";
+import { authmiddleware, isAdmin } from "../middleware/authmiddleware.js";
 import { addNewBook } from "../controllers/bookController.js";
 
-const router = express.router();
+const router = express.Router();
 
-router.post("/addNewBook", authmiddleware, addNewBook);
+router.post("/", authmiddleware, isAdmin, addNewBook);
 export default router;

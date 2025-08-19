@@ -5,6 +5,7 @@ import mongoConnect from "./src/config/mongoConfig.js";
 import config from "./src/config/config.js";
 import authRouter from "./src/routes/authRouter.js";
 import userRouter from "./src/routes/userRouter.js";
+import bookRouter from "./src/routes/bookRouter.js";
 const app = express();
 
 dotenv.config();

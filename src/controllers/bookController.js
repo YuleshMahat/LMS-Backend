@@ -1,6 +1,7 @@
 import { addBook } from "../models/books/bookModel.js";
 
 export const addNewBook = async (req, res) => {
+  console.log("add new book function trigerred");
   const bookObj = req.body;
   try {
     const result = await addBook(bookObj);

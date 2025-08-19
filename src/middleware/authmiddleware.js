@@ -1,18 +1,15 @@
-import jwt from "jsonwebtoken";
 import { getUserByEmail } from "../models/users/userModel.js";
-import { createAccessToken, decodeRefreshToken } from "../utils/jwt.js";
+import { decodeAccessToken, decodeRefreshToken } from "../utils/jwt.js";
 
 export const authmiddleware = async (req, res, next) => {
   console.log("Authentication middleware triggered.");
   try {
     let accessToken = req.headers.authorization;
-    console.log(accessToken);
-    let decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+    let decoded = decodeAccessToken(accessToken, "access");
     let user = await getUserByEmail(decoded.email);
     if (user) {
       user.password = "";
       req.user = user;
-      console.log(req.user);
       next();
     } else {
       return res.status(401).json({
@@ -24,6 +21,7 @@ export const authmiddleware = async (req, res, next) => {
     let errorMessage = err.message.includes("jwt expire")
       ? "Expired access token"
       : "Server Error";
+    console.log(err);
 
     let status = err.message.includes("jwt expire") ? 401 : 500;
     return res.status(status).json({
@@ -34,12 +32,9 @@ export const authmiddleware = async (req, res, next) => {
 };
 
 export const refreshmiddleware = async (req, res, next) => {
-  console.log("Refresh token middleware trigerred");
   try {
     let refreshToken = req.headers.authorization;
-    console.log(refreshToken);
     let decoded = decodeRefreshToken(refreshToken);
-    console.log("decoded refresh token:", decoded);
     let user = await getUserByEmail(decoded.email);
     if (user) {
       user.password = "";
@@ -61,4 +56,9 @@ export const refreshmiddleware = async (req, res, next) => {
       message: errorMessage,
     });
   }
+};
+
+export const isAdmin = async (req, res, next) => {
+  if (req.user.role) next();
+  return res.json({ status: false, message: "Not authorized" });
 };

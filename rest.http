@@ -1,0 +1,23 @@
+@apiURL = http://localhost:4000/api/v1
+###
+POST {{apiURL}}/book
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlAZ21haWwuY29tIiwiaWF0IjoxNzU1NTY1NTk3LCJleHAiOjE3NTU1NjkxOTd9.03DaOky5gcBkKQdypUrJfdLQEo_e1XSLjAnhMyxX8zU
+Content-Type: application/json
+
+{
+  "title": "harry potter",
+  "author": "Jk rowling",
+  "description": "harry potter series",
+  "publishedYear": 2058,
+  "genre": "fiction"
+
+}
+
+####
+POST {{apiURL}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "y@gmail.com",
+  "password": "1234"
+}
