@@ -6,12 +6,13 @@ import {
 } from "../controllers/authController.js";
 import { refreshmiddleware } from "../middleware/authmiddleware.js";
 import { newAccessToken } from "../controllers/authController.js";
+import { loginValidator } from "../middleware/joimiddlware.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 
-router.post("/login", loginUser);
+router.post("/login", loginValidator, loginUser);
 
 router.get("/verifyEmail", verifyEmail);
 

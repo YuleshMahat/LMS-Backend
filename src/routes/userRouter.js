@@ -8,5 +8,4 @@ import {
 const router = express.Router();
 
 router.get("/detail", authmiddleware, getUserDetails);
-
 export default router;

@@ -2,8 +2,8 @@ import { getUserByEmail } from "../models/users/userModel.js";
 import { decodeAccessToken, decodeRefreshToken } from "../utils/jwt.js";
 
 export const authmiddleware = async (req, res, next) => {
-  console.log("Authentication middleware triggered.");
   try {
+    console.log("Triggered auth middleware");
     let accessToken = req.headers.authorization;
     let decoded = decodeAccessToken(accessToken, "access");
     let user = await getUserByEmail(decoded.email);
@@ -59,6 +59,6 @@ export const refreshmiddleware = async (req, res, next) => {
 };
 
 export const isAdmin = async (req, res, next) => {
-  if (req.user.role) next();
-  return res.json({ status: false, message: "Not authorized" });
+  if (req.user.role === "admin") next();
+  else return res.json({ status: false, message: "Not authorized" });
 };

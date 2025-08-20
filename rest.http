@@ -13,6 +13,11 @@ Content-Type: application/json
 
 }
 
+
+###
+GET {{apiURL}}/book
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlAZ21haWwuY29tIiwiaWF0IjoxNzU1NzIxMzcwLCJleHAiOjE3NTU3MjQ5NzB9.d4-u-_BkXqZYROo8rqsayjdfjDMxg28sgzdaTO6QEAc 
+
 ####
 POST {{apiURL}}/auth/login
 Content-Type: application/json
