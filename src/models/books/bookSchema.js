@@ -18,6 +18,9 @@ const bookSchema = new mongoose.Schema(
       unique: true,
       index: 1,
     },
+    description: {
+      type: String,
+    },
     genre: {
       type: String,
       required: true,

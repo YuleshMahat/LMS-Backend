@@ -22,6 +22,21 @@ export const addBookValidator = (req, res, next) => {
   joiValidator(addBookSchema, req, res, next);
 };
 
+export const editBookValidator = (req, res, next) => {
+  let editBookSchema = Joi.object({
+    _id: Joi.string(),
+    title: Joi.string(),
+    author: Joi.string(),
+    isbn: Joi.string(),
+    genre: Joi.string(),
+    publishedYear: Joi.string(),
+    description: Joi.string(),
+    status: Joi.string(),
+  });
+
+  joiValidator(editBookSchema, req, res, next);
+};
+
 export const loginValidator = (req, res, next) => {
   console.log("joi middleware triggered");
   let loginSchema = Joi.object({

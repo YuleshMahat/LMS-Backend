@@ -7,3 +7,7 @@ export const addBook = (bookObj) => {
 export const getBooks = (filter) => {
   return Book.find(filter);
 };
+
+export const editBook = (filter, update) => {
+  return Book.findOneAndUpdate(filter, update);
+};
