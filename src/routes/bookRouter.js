@@ -4,6 +4,7 @@ import {
   addNewBook,
   fetchBooks,
   updateBook,
+  deleteBook,
 } from "../controllers/bookController.js";
 import {
   addBookValidator,
@@ -17,4 +18,6 @@ router.post("/", addBookValidator, authmiddleware, isAdmin, addNewBook);
 router.get("/", authmiddleware, isAdmin, fetchBooks);
 
 router.put("/", editBookValidator, authmiddleware, isAdmin, updateBook);
+
+router.delete("/", authmiddleware, isAdmin, deleteBook);
 export default router;

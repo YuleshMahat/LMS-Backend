@@ -1,4 +1,9 @@
-import { addBook, editBook, getBooks } from "../models/books/bookModel.js";
+import {
+  addBook,
+  deleteBookById,
+  editBook,
+  getBooks,
+} from "../models/books/bookModel.js";
 
 export const addNewBook = async (req, res) => {
   console.log("add new book function trigerred");
@@ -58,6 +63,25 @@ export const updateBook = async (req, res) => {
     return res
       .status(500)
       .json({ status: false, message: "Error updating data" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
+  }
+};
+
+export const deleteBook = async (req, res) => {
+  try {
+    const deleteId = req.body;
+    const data = await deleteBookById(deleteId);
+    if (data) {
+      return res
+        .status(200)
+        .json({ status: true, message: "Delete successful" });
+    }
+    return res
+      .status(500)
+      .json({ status: false, message: "Error deleting data" });
   } catch (error) {
     return res
       .status(500)

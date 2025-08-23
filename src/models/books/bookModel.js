@@ -11,3 +11,7 @@ export const getBooks = (filter) => {
 export const editBook = (filter, update) => {
   return Book.findOneAndUpdate(filter, update);
 };
+
+export const deleteBookById = (id) => {
+  return Book.deleteOne({ id });
+};
