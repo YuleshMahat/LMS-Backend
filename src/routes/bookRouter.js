@@ -5,19 +5,30 @@ import {
   fetchBooks,
   updateBook,
   deleteBook,
+  getAllBooks,
 } from "../controllers/bookController.js";
 import {
   addBookValidator,
   editBookValidator,
 } from "../middleware/joimiddlware.js";
+import { upload } from "../middleware/multerconfig.js";
 
 const router = express.Router();
 
-router.post("/", addBookValidator, authmiddleware, isAdmin, addNewBook);
+router.post(
+  "/",
+  upload.single("thumbnail"),
+  addBookValidator,
+  authmiddleware,
+  isAdmin,
+  addNewBook
+);
 
 router.get("/", authmiddleware, isAdmin, fetchBooks);
 
 router.put("/", editBookValidator, authmiddleware, isAdmin, updateBook);
 
 router.delete("/", authmiddleware, isAdmin, deleteBook);
+
+router.get("/pub-books", getAllBooks);
 export default router;

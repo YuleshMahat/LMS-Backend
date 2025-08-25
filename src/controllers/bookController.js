@@ -72,7 +72,7 @@ export const updateBook = async (req, res) => {
 
 export const deleteBook = async (req, res) => {
   try {
-    const deleteId = req.body;
+    const deleteId = req.body.id;
     const data = await deleteBookById(deleteId);
     if (data) {
       return res
@@ -86,5 +86,20 @@ export const deleteBook = async (req, res) => {
     return res
       .status(500)
       .json({ status: false, message: "Internal server error" });
+  }
+};
+
+export const getAllBooks = async (req, res) => {
+  try {
+    const books = await getBooks({ status: "active" });
+    if (books) {
+      res.status(200).json({
+        status: true,
+        message: "Successfull retrieved pub book",
+        books,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Internal Server Error" });
   }
 };

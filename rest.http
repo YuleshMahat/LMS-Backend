@@ -26,3 +26,8 @@ Content-Type: application/json
   "email": "y@gmail.com",
   "password": "1234"
 }
+
+
+###
+GET {{apiURL}}/book/pub-books
+Content-type: application/json

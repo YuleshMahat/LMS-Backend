@@ -13,5 +13,5 @@ export const editBook = (filter, update) => {
 };
 
 export const deleteBookById = (id) => {
-  return Book.deleteOne({ id });
+  return Book.deleteOne({ _id: id });
 };
