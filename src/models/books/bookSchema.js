@@ -44,6 +44,9 @@ const bookSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    expectedAvailable: {
+      type: Date,
+    },
   },
   {
     timestamps: true,

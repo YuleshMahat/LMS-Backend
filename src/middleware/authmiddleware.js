@@ -3,7 +3,6 @@ import { decodeAccessToken, decodeRefreshToken } from "../utils/jwt.js";
 
 export const authmiddleware = async (req, res, next) => {
   try {
-    console.log("Triggered auth middleware");
     let accessToken = req.headers.authorization;
     let decoded = decodeAccessToken(accessToken, "access");
     let user = await getUserByEmail(decoded.email);
