@@ -7,6 +7,8 @@ import authRouter from "./src/routes/authRouter.js";
 import userRouter from "./src/routes/userRouter.js";
 import bookRouter from "./src/routes/bookRouter.js";
 import borrowRouter from "./src/routes/borrowRouter.js";
+import reviewRouter from "./src/routes/reviewRouter.js";
+
 const app = express();
 
 dotenv.config();
@@ -17,6 +19,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
+app.use("/api/v1/review", reviewRouter);
 app.get("/", (req, res) => {
   res.send("I am alive");
 });

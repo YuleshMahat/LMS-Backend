@@ -1,5 +1,10 @@
 import { editBook } from "../models/books/bookModel.js";
-import { getBorrowedBooks, insertBook } from "../models/borrows/borrowModel.js";
+import {
+  getBookById,
+  getBorrowedBooks,
+  insertBook,
+  returnBookQuery,
+} from "../models/borrows/borrowModel.js";
 
 export const borrowBook = async (req, res) => {
   try {
@@ -45,9 +50,7 @@ export const borrowBook = async (req, res) => {
 
 export const fetchBorrowedBooks = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const borrows = await getBorrowedBooks({ userId: userId });
-    console.log("fetchborrowedbooks routee");
+    const borrows = await getBorrowedBooks({});
     if (borrows) {
       return res
         .status(200)
@@ -56,6 +59,41 @@ export const fetchBorrowedBooks = async (req, res) => {
       return res.status(500).json({
         status: false,
         message: "Book Borrow Error",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Internal sever error" });
+  }
+};
+
+export const returnBook = async (req, res) => {
+  try {
+    const { borrowId } = req.params;
+    console.log(borrowId);
+    //get bookId using the borrowId
+    const borrowData = await getBookById({ _id: borrowId });
+    const today = new Date();
+
+    //change borrows document
+    const result = await returnBookQuery(
+      { _id: borrowId },
+      { status: "returned", returnDate: today }
+    );
+
+    //change availability of book
+
+    const data = await editBook(
+      { _id: borrowData.bookId },
+      { availability: false }
+    );
+    if (data) {
+      return res
+        .status(200)
+        .json({ status: true, message: "Return successful" });
+    } else {
+      return res.status(500).json({
+        status: false,
+        message: "Book Return Error",
       });
     }
   } catch (error) {
