@@ -1,6 +1,10 @@
 import express from "express";
 import { authmiddleware } from "../middleware/authmiddleware.js";
-import { insertReview, getReviews } from "../controllers/reviewController.js";
+import {
+  insertReview,
+  getReviews,
+  getApprovedReviews,
+} from "../controllers/reviewController.js";
 const router = express.Router();
 
 router.post("/", authmiddleware, insertReview);

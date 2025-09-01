@@ -8,7 +8,6 @@ import {
 
 export const borrowBook = async (req, res) => {
   try {
-    console.log(req.user);
     const userId = req.user._id;
     const { bookId, title, thumbnail } = req.body;
 
@@ -69,7 +68,6 @@ export const fetchBorrowedBooks = async (req, res) => {
 export const returnBook = async (req, res) => {
   try {
     const { borrowId } = req.params;
-    console.log(borrowId);
     //get bookId using the borrowId
     const borrowData = await getBookById({ _id: borrowId });
     const today = new Date();

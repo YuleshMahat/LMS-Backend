@@ -4,12 +4,14 @@ import {
   editBook,
   getBooks,
 } from "../models/books/bookModel.js";
+import slugify from "slugify";
 
 export const addNewBook = async (req, res) => {
   console.log("add new book function trigerred");
   const bookObj = req.body;
+  const slug = slugify(bookObj.title);
   try {
-    const result = await addBook(bookObj);
+    const result = await addBook({ ...bookObj, slug });
     if (result) {
       return res
         .status(200)
