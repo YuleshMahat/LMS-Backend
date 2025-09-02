@@ -15,3 +15,7 @@ export const getBookById = (filter) => {
 export const returnBookQuery = (filter, object) => {
   return Borrow.updateOne(filter, object);
 };
+
+export const updateBorrowQuery = (filter, object) => {
+  return Borrow.updateOne(filter, object);
+};

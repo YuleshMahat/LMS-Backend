@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import sendEmailVerificationTemplate from "../utils/mailProcessor.js";
 import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
 export const registerUser = async (req, res) => {
-  console.log("register route hit");
   const userObject = req.body;
   let salt = bcrypt.genSaltSync(parseInt(process.env.SALT) || 10);
   userObject.password = bcrypt.hashSync(userObject.password, salt);
@@ -93,7 +92,6 @@ export const loginUser = async (req, res) => {
 };
 
 export const verifyEmail = async (req, res) => {
-  console.log("verify email route hit");
   const email = req.query.email;
   const token1 = req.query.t;
   let token2 = "";
@@ -103,7 +101,6 @@ export const verifyEmail = async (req, res) => {
     if (user) {
       token2 = user.emailVerificationToken;
       user_id = user._id;
-      console.log("query token ", token1, "db token ", token2);
     }
   } catch (error) {
     console.log("Error fetching the user details");
@@ -123,10 +120,8 @@ export const newAccessToken = (req, res) => {
   let payload = {
     email: req.user.email,
   };
-  console.log(payload);
 
   let accessToken = createAccessToken(payload);
-  console.log("new access token: ", accessToken);
   return res.status(200).json({
     message: "Success",
     status: true,

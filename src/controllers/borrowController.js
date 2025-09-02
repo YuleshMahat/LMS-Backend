@@ -4,6 +4,7 @@ import {
   getBorrowedBooks,
   insertBook,
   returnBookQuery,
+  updateBorrowQuery,
 } from "../models/borrows/borrowModel.js";
 
 export const borrowBook = async (req, res) => {
@@ -92,6 +93,26 @@ export const returnBook = async (req, res) => {
       return res.status(500).json({
         status: false,
         message: "Book Return Error",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Internal sever error" });
+  }
+};
+
+export const updateBorrow = async (req, res) => {
+  try {
+    const { _id, status } = req.body;
+    console.log(req.body);
+    const review = await updateBorrowQuery({ _id }, { status });
+    if (review) {
+      return res
+        .status(200)
+        .json({ status: true, message: "Borrow update successful" });
+    } else {
+      return res.status(500).json({
+        status: false,
+        message: "Borrow update Error",
       });
     }
   } catch (error) {

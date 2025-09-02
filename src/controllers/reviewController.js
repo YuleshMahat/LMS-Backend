@@ -1,13 +1,15 @@
 import { createReview, fetchReviews } from "../models/reviews/reviewModel.js";
+import { updateBookAverageRating } from "../utils/bookRatingHandler.js";
 
 export const insertReview = async (req, res) => {
   try {
     const userId = req.user._id;
     const reviewObject = req.body;
     const payload = { userId, ...reviewObject };
-    console.log(payload);
     const review = await createReview(payload);
     if (review) {
+      //update the average rating of the book
+      updateBookAverageRating(review.bookId);
       res.status(200).json({ status: true, message: "Review created" });
     } else {
       res

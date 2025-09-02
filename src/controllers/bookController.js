@@ -7,7 +7,6 @@ import {
 import slugify from "slugify";
 
 export const addNewBook = async (req, res) => {
-  console.log("add new book function trigerred");
   const bookObj = req.body;
   const slug = slugify(bookObj.title);
   try {
@@ -53,9 +52,7 @@ export const fetchBooks = async (req, res) => {
 
 export const updateBook = async (req, res) => {
   try {
-    console.log("updatebook route triggered");
     const updateObj = req.body;
-    console.log(updateObj);
     const data = await editBook({ _id: updateObj._id }, updateObj);
     if (data) {
       return res
