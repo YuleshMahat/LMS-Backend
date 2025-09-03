@@ -2,6 +2,16 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
+    title: {
+      type: String,
+      required: true,
+      ref: "book",
+    },
+    userName: {
+      type: String,
+      required: true,
+      ref: "user",
+    },
     userId: {
       type: String,
       required: true,

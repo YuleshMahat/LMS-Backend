@@ -4,10 +4,12 @@ import {
   insertReview,
   getReviews,
   getApprovedReviews,
+  updateReview,
 } from "../controllers/reviewController.js";
 const router = express.Router();
 
 router.post("/", authmiddleware, insertReview);
 router.get("/", authmiddleware, getReviews);
 router.get("/approved", authmiddleware, getApprovedReviews);
+router.patch("/", authmiddleware, updateReview);
 export default router;

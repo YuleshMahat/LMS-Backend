@@ -7,3 +7,7 @@ export const createReview = (reviewObject) => {
 export const fetchReviews = (filter) => {
   return Review.find(filter);
 };
+
+export const updateReviewQuery = (filter, updateData) => {
+  return Review.findOneAndUpdate(filter, updateData);
+};

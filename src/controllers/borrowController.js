@@ -80,10 +80,9 @@ export const returnBook = async (req, res) => {
     );
 
     //change availability of book
-
     const data = await editBook(
       { _id: borrowData.bookId },
-      { availability: false }
+      { availability: true }
     );
     if (data) {
       return res
@@ -103,7 +102,6 @@ export const returnBook = async (req, res) => {
 export const updateBorrow = async (req, res) => {
   try {
     const { _id, status } = req.body;
-    console.log(req.body);
     const review = await updateBorrowQuery({ _id }, { status });
     if (review) {
       return res
