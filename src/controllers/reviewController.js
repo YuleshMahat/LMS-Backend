@@ -48,10 +48,13 @@ export const getReviews = async (req, res) => {
 
 export const getApprovedReviews = async (req, res) => {
   try {
+    const bookId = req.params.bookId;
+    console.log(bookId);
     const reviews = await fetchReviews({
       isApproved: true,
-      bookId: req.body.bookId,
+      bookId,
     });
+    console.log(reviews);
     if (reviews) {
       res
         .status(200)
