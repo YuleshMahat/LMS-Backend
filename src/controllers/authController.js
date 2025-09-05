@@ -25,7 +25,7 @@ export const registerUser = async (req, res) => {
         console.log(result);
         const url = `${process.env.ROOT_DOMAIN}/verify-email?t=${uniqueToken}&email=${newUser.email}`;
         console.log(url);
-        await sendEmailVerificationTemplate({
+        sendEmailVerificationTemplate({
           to: newUser.email,
           url,
           userName: newUser.fName,

@@ -50,7 +50,7 @@ export const getApprovedReviews = async (req, res) => {
   try {
     const bookId = req.params.bookId;
     console.log(bookId);
-    const reviews = await fetchReviews({
+    const reviews = await fetchRaeviews({
       isApproved: true,
       bookId,
     });

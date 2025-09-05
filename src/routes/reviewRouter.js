@@ -11,5 +11,5 @@ const router = express.Router();
 router.post("/", authmiddleware, insertReview);
 router.get("/", authmiddleware, getReviews);
 router.patch("/", authmiddleware, updateReview);
-router.get("/:bookId", authmiddleware, getApprovedReviews);
+router.get("/:bookId", getApprovedReviews);
 export default router;
