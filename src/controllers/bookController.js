@@ -90,7 +90,25 @@ export const deleteBook = async (req, res) => {
 
 export const getAllBooks = async (req, res) => {
   try {
-    const books = await getBooks({ status: "active" });
+    const { q } = req.query;
+    console.log(q);
+    let books;
+    if (q) {
+      books = await getBooks({
+        $and: [
+          { status: "active" },
+          {
+            $or: [
+              { title: { $regex: q, $options: "i" } },
+              { author: { $regex: q, $options: "i" } },
+            ],
+          },
+        ],
+      });
+    } else {
+      books = await getBooks({ status: "active" });
+    }
+
     if (books) {
       res.status(200).json({
         status: true,

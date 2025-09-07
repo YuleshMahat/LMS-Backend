@@ -31,3 +31,7 @@ Content-Type: application/json
 ###
 GET {{apiURL}}/book/pub-books
 Content-type: application/json
+
+####
+GET {{apiURL}}/book/pub-books?q=subtle art
+Content-type: application/json
