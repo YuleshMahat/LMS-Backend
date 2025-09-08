@@ -4,8 +4,8 @@ export const addBook = (bookObj) => {
   return Book.insertOne(bookObj);
 };
 
-export const getBooks = (filter) => {
-  return Book.find(filter);
+export const getBooks = (filter, skipRecords, pageLimit) => {
+  return Book.find(filter).skip(skipRecords).limit(pageLimit);
 };
 
 export const editBook = (filter, update) => {

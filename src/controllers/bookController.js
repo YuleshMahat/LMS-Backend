@@ -90,11 +90,34 @@ export const deleteBook = async (req, res) => {
 
 export const getAllBooks = async (req, res) => {
   try {
-    const { q } = req.query;
-    console.log(q);
+    const { q, lm, pn } = req.query;
     let books;
+    let totalPageNumbers = 1;
+
+    books = await getBooks({ status: "active" });
+    totalPageNumbers = Math.ceil(books.length / lm);
+    //formula: skip = pagelimit * (pagenumber -1)
+    let skipRecords = lm * (pn - 1);
     if (q) {
-      books = await getBooks({
+      //query paramerter(filter, skiprecords, itemlimit)
+      books = await getBooks(
+        {
+          $and: [
+            { status: "active" },
+            {
+              $or: [
+                { title: { $regex: q, $options: "i" } },
+                { author: { $regex: q, $options: "i" } },
+              ],
+            },
+          ],
+        },
+        skipRecords,
+        lm
+      );
+
+      //get total number of books for the search without the skip and limit for totalpagenumber
+      let allBooks = await getBooks({
         $and: [
           { status: "active" },
           {
@@ -105,8 +128,7 @@ export const getAllBooks = async (req, res) => {
           },
         ],
       });
-    } else {
-      books = await getBooks({ status: "active" });
+      totalPageNumbers = Math.ceil(allBooks.length / lm);
     }
 
     if (books) {
@@ -114,6 +136,7 @@ export const getAllBooks = async (req, res) => {
         status: true,
         message: "Successfull retrieved pub book",
         books,
+        totalPageNumbers,
       });
     }
   } catch (error) {

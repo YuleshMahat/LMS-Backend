@@ -33,5 +33,5 @@ GET {{apiURL}}/book/pub-books
 Content-type: application/json
 
 ####
-GET {{apiURL}}/book/pub-books?q=subtle art
+GET {{apiURL}}/book/pub-books?q=habit&lm=2&pn=0
 Content-type: application/json

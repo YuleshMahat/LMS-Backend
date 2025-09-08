@@ -10,14 +10,22 @@ import {
 export const borrowBook = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { bookId, title, thumbnail } = req.body;
+    const { bookId, title } = req.body;
+    let thumbnail = "";
+    if (req.body.thumbnail) thumbnail = req.body.thumbnail;
 
     //calcualte return date
     const today = new Date();
     const after15Days = new Date(today);
     after15Days.setDate(today.getDate() + 15);
 
-    const payload = { bookId, title, thumbnail, dueDate: after15Days, userId };
+    const payload = {
+      bookId,
+      title,
+      dueDate: after15Days,
+      userId,
+      thumbnail,
+    };
 
     //Edit the book record first
     const result = await editBook(
