@@ -24,6 +24,9 @@ app.get("/", (req, res) => {
   res.send("I am alive");
 });
 
+app.get("/", (req, res) => {
+  res.send("The server is working");
+});
 mongoConnect()
   .then(() => {
     app.listen(config.port, (err) => {
