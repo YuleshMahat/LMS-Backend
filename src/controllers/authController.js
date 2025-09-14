@@ -64,6 +64,7 @@ export const loginUser = async (req, res) => {
         };
 
         let accessToken = createAccessToken(payload);
+        console.log(1111, accessToken);
         let refreshToken = createRefreshToken(payload);
 
         return res.status(200).json({

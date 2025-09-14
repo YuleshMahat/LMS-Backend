@@ -1,37 +1,10 @@
 @apiURL = http://localhost:4000/api/v1
-###
-POST {{apiURL}}/book
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlAZ21haWwuY29tIiwiaWF0IjoxNzU1NTY1NTk3LCJleHAiOjE3NTU1NjkxOTd9.03DaOky5gcBkKQdypUrJfdLQEo_e1XSLjAnhMyxX8zU
-Content-Type: application/json
-
-{
-  "title": "harry potter",
-  "author": "Jk rowling",
-  "description": "harry potter series",
-  "publishedYear": 2058,
-  "genre": "fiction"
-
-}
-
-
-###
-GET {{apiURL}}/book
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlAZ21haWwuY29tIiwiaWF0IjoxNzU1NzIxMzcwLCJleHAiOjE3NTU3MjQ5NzB9.d4-u-_BkXqZYROo8rqsayjdfjDMxg28sgzdaTO6QEAc 
 
 ####
-POST {{apiURL}}/auth/login
+POST {{apiURL}}/checkout
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlAZ21haWwuY29tIiwiaWF0IjoxNzU3ODQzOTg0LCJleHAiOjE3NTc4NDc1ODR9._3OGWhklr8fd_2B7bl5viWh4GBbEhHt4rHIpqfpzscM
 
 {
-  "email": "y@gmail.com",
-  "password": "1234"
+  "amount": 500 
 }
-
-
-###
-GET {{apiURL}}/book/pub-books
-Content-type: application/json
-
-####
-GET {{apiURL}}/book/pub-books?q=habit&lm=2&pn=0
-Content-type: application/json
