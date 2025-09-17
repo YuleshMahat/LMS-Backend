@@ -1,7 +1,7 @@
 import Borrow from "./borrowSchema.js";
 
-export const insertBook = (borrowObj) => {
-  return Borrow.insertOne(borrowObj);
+export const insertBorrows = (borrowObj) => {
+  return Borrow.insertMany(borrowObj);
 };
 
 export const getBorrowedBooks = (filter) => {

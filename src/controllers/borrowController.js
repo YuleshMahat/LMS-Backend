@@ -1,40 +1,47 @@
-import { editBook } from "../models/books/bookModel.js";
+import { editManybooks } from "../models/books/bookModel.js";
 import {
   getBookById,
   getBorrowedBooks,
-  insertBook,
+  insertBorrows,
   returnBookQuery,
   updateBorrowQuery,
 } from "../models/borrows/borrowModel.js";
 
 export const borrowBook = async (req, res) => {
-  try {
-    const userId = req.user._id;
-    const { bookId, title } = req.body;
-    let thumbnail = "";
-    if (req.body.thumbnail) thumbnail = req.body.thumbnail;
-
+  const calcualteReturnDate = () => {
     //calcualte return date
     const today = new Date();
     const after15Days = new Date(today);
     after15Days.setDate(today.getDate() + 15);
+    return after15Days;
+  };
 
-    const payload = {
-      bookId,
-      title,
-      dueDate: after15Days,
+  try {
+    const userId = req.user._id;
+    const { borrowArr } = req.body;
+
+    const bookIds = borrowArr.map((book) => book.bookId);
+
+    const dueDate = calcualteReturnDate();
+
+    const borrowsDocs = borrowArr.map((book) => ({
+      bookId: book.bookId,
+      title: book.title,
+      dueDate,
       userId,
-      thumbnail,
-    };
-
+      thumbnail: book.thumbnail || "",
+    }));
     //Edit the book record first
-    const result = await editBook(
-      { _id: bookId },
-      { availability: false, expectedAvailable: after15Days }
+    const result = await editManybooks(
+      { _id: { $in: bookIds } },
+      {
+        availability: false,
+        expectedAvailable: dueDate,
+      }
     );
 
     if (result) {
-      const data = await insertBook(payload);
+      const data = await insertBorrows(borrowsDocs);
       if (data) {
         return res
           .status(200)

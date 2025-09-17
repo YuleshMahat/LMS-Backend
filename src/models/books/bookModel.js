@@ -12,6 +12,10 @@ export const editBook = (filter, update) => {
   return Book.findOneAndUpdate(filter, update);
 };
 
+export const editManybooks = (filter, update) => {
+  return Book.updateMany(filter, { $set: update });
+};
+
 export const deleteBookById = (id) => {
   return Book.deleteOne({ _id: id });
 };
