@@ -1,4 +1,4 @@
-import { editManybooks } from "../models/books/bookModel.js";
+import { editManybooks, editBook } from "../models/books/bookModel.js";
 import {
   getBookById,
   getBorrowedBooks,
