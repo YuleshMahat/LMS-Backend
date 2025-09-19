@@ -5,6 +5,7 @@ import {
   getBooks,
 } from "../models/books/bookModel.js";
 import slugify from "slugify";
+import { getBooksByOccurance } from "../models/borrows/borrowModel.js";
 
 export const addNewBook = async (req, res) => {
   const bookObj = req.body;
@@ -141,5 +142,27 @@ export const getAllBooks = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ status: false, message: "Internal Server Error" });
+  }
+};
+
+export const getFeaturedBooks = async (req, res) => {
+  console.log(111);
+  try {
+    const data = await getBooksByOccurance("bookId");
+
+    if (data) {
+      return res.status(200).json({
+        status: true,
+        message: "Feature books fetch successful",
+        data,
+      });
+    }
+    return res
+      .status(500)
+      .json({ status: false, message: "Error fetching data" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 };

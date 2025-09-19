@@ -9,12 +9,14 @@ export const getAdmins = async (req, res) => {
   try {
     const admins = await getUsers({ role: "admin" });
     if (admins) {
-      res
+      return res
         .status(200)
         .json({ status: true, message: "Fetched admin users", admins });
     }
   } catch (error) {
-    res.status(500).json({ status: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 };
 
@@ -49,9 +51,13 @@ export const changeAdminStaus = async (req, res) => {
       await updateUser(id, { role: "admin" });
     }
 
-    res.status(200).json({ status: true, message: "Updated admin status" });
+    return res
+      .status(200)
+      .json({ status: true, message: "Updated admin status" });
   } catch (error) {
-    res.status(500).json({ status: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 };
 
@@ -68,6 +74,8 @@ export const deleteAccount = async (req, res) => {
       .status(200)
       .json({ status: true, message: "Successfully deleted user" });
   } catch (error) {
-    res.status(500).json({ status: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 };

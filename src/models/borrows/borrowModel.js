@@ -8,6 +8,23 @@ export const getBorrowedBooks = (filter) => {
   return Borrow.find(filter);
 };
 
+export const getBooksByOccurance = (property) => {
+  return Borrow.aggregate([
+    {
+      $group: {
+        _id: `$` + property, // group by bookId
+        occuranceCount: { $sum: 1 }, // count how many times each bookId appears
+      },
+    },
+    {
+      $sort: { booccuranceCountrowCount: -1 }, // sort descending
+    },
+    {
+      $limit: 4, // get 4 books only
+    },
+  ]);
+};
+
 export const getBookById = (filter) => {
   return Borrow.findById(filter);
 };
