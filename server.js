@@ -8,6 +8,7 @@ import bookRouter from "./src/routes/bookRouter.js";
 import borrowRouter from "./src/routes/borrowRouter.js";
 import reviewRouter from "./src/routes/reviewRouter.js";
 import checkoutRouter from "./src/routes/checkoutRouter.js";
+import adminRouter from "./src/routes/adminRouter.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/api/v1/book", bookRouter);
 app.use("/api/v1/borrow", borrowRouter);
 app.use("/api/v1/review", reviewRouter);
 app.use("/api/v1/checkout", checkoutRouter);
+app.use("/api/v1/admin", adminRouter);
 
 app.get("/", (req, res) => {
   res.send("I am alive");

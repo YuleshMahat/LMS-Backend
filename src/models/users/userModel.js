@@ -1,8 +1,8 @@
 import User from "./userSchema.js";
 
-export const getUsers = () => {
+export const getUsers = (filter) => {
   // list of users
-  return User.find();
+  return User.find(filter);
 };
 
 // get user by id
