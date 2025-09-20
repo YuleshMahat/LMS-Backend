@@ -3,6 +3,7 @@ import {
   deleteBookById,
   editBook,
   getBooks,
+  getBooksByOrder,
 } from "../models/books/bookModel.js";
 import slugify from "slugify";
 import { getBooksByOccurance } from "../models/borrows/borrowModel.js";
@@ -146,15 +147,35 @@ export const getAllBooks = async (req, res) => {
 };
 
 export const getFeaturedBooks = async (req, res) => {
-  console.log(111);
   try {
-    const data = await getBooksByOccurance("bookId");
+    const getMostBorrowed = async () => {
+      const topBorrowed = await getBooksByOccurance("bookId");
+      const topBorrowedIds = topBorrowed.map((book) => book._id);
+      const topBorrowedBooks = await getBooks({ _id: { $in: topBorrowedIds } });
+      return topBorrowedBooks;
+    };
 
-    if (data) {
+    const getNewlyIn = async () => {
+      const newlyIn = await getBooksByOrder({}, { createdAt: -1 }, 4);
+      return newlyIn;
+    };
+
+    const getMostReviewed = async () => {
+      const mostReviewed = await getBooksByOrder({}, { averageRating: -1 }, 4);
+      return mostReviewed;
+    };
+
+    const mostBorrowedBooks = await getMostBorrowed();
+    const recentlyAddedBooks = await getNewlyIn();
+    const mostRatedBooks = await getMostReviewed();
+
+    if (mostBorrowedBooks) {
       return res.status(200).json({
         status: true,
         message: "Feature books fetch successful",
-        data,
+        mostBorrowedBooks,
+        recentlyAddedBooks,
+        mostRatedBooks,
       });
     }
     return res
