@@ -5,7 +5,10 @@ export const addBook = (bookObj) => {
 };
 
 export const getBooks = (filter, skipRecords, pageLimit) => {
-  return Book.find(filter).skip(skipRecords).limit(pageLimit);
+  return Book.find(filter)
+    .skip(skipRecords)
+    .limit(pageLimit)
+    .sort({ createAt: -1 });
 };
 
 export const getBooksByOrder = (filter, order, limit) => {

@@ -12,7 +12,8 @@ export const addNewBook = async (req, res) => {
   const bookObj = req.body;
   const slug = slugify(bookObj.title);
   try {
-    const result = await addBook({ ...bookObj, slug });
+    const image = req.file.path;
+    const result = await addBook({ ...bookObj, slug, image: image });
     if (result) {
       return res
         .status(200)

@@ -9,6 +9,7 @@ const bookSchema = new mongoose.Schema(
     slug: {
       type: String,
       required: true,
+      unique: true,
     },
     author: {
       type: String,
@@ -24,6 +25,10 @@ const bookSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+    },
+    image: {
+      type: String,
+      required: true,
     },
     genre: {
       type: String,

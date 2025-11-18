@@ -14,6 +14,11 @@ const config = {
   stripe: {
     secret: process.env.STRIPE_SECRET,
   },
+  cloudinary: {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+  },
 };
 
 export default config;
