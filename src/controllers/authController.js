@@ -22,7 +22,6 @@ export const registerUser = async (req, res) => {
         const result = await updateUser(newUser._id, {
           emailVerificationToken: uniqueToken,
         });
-        console.log(result);
         const url = `${process.env.ROOT_DOMAIN}/verify-email?t=${uniqueToken}&email=${newUser.email}`;
         console.log(url);
         sendEmailVerificationTemplate({

@@ -1,12 +1,12 @@
 import nodemailer from "nodemailer";
+import config from "../config/config.js";
 
 const processEmail = async (obj) => {
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
+    service: "gmail",
     auth: {
-      user: "alexandre.rogahn@ethereal.email",
-      pass: "hRnj4HsEKAFs9KWSyn",
+      user: config.nodemailer.user,
+      pass: config.nodemailer.pass,
     },
   });
   try {

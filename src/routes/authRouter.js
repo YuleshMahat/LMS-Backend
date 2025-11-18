@@ -4,7 +4,7 @@ import {
   loginUser,
   verifyEmail,
 } from "../controllers/authController.js";
-import { refreshmiddleware } from "../middleware/authmiddleware.js";
+import { isVerified, refreshmiddleware } from "../middleware/authmiddleware.js";
 import { newAccessToken } from "../controllers/authController.js";
 import { loginValidator } from "../middleware/joimiddlware.js";
 
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 
-router.post("/login", loginValidator, loginUser);
+router.post("/login", loginValidator, isVerified, loginUser);
 
 router.get("/verifyEmail", verifyEmail);
 

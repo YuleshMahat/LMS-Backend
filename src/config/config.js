@@ -19,6 +19,10 @@ const config = {
     api_key: process.env.CLOUDINARY_KEY,
     api_secret: process.env.CLOUDINARY_SECRET,
   },
+  nodemailer: {
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS,
+  },
 };
 
 export default config;

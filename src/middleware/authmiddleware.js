@@ -61,3 +61,22 @@ export const isAdmin = async (req, res, next) => {
   if (req.user.role === "admin") next();
   else return res.json({ status: false, message: "Not authorized" });
 };
+
+export const isVerified = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const result = await getUserByEmail(email);
+    if (result && result.verified) {
+      next();
+    } else {
+      return res
+        .status(400)
+        .json({ status: false, message: "Please verify your email" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal Server Error" });
+  }
+};
