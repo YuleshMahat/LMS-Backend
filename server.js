@@ -33,7 +33,7 @@ mongoConnect()
       if (err) {
         console.log("SERVER COULD NOT START");
       } else {
-        console.log("Server started at port", config.port);
+        console.log("Server started at port 4444", config.port);
       }
     });
   })
